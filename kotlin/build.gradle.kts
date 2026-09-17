@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     id("com.android.application") version "8.1.0" apply false
-    id("org.jetbrains.kotlin.android") version "2.1.21" apply false
+    id("org.jetbrains.kotlin.android") version "1.9.23" apply false
     id("com.android.library") version "8.1.0" apply false
 }
 
@@ -13,6 +13,10 @@ subprojects {
             if (requested.group == "org.bouncycastle" && requested.name.contains("bcprov")) {
                 useTarget("org.bouncycastle:bcprov-jdk15to18:1.78")
                 because("Resolve version conflict between legacy titanium-json-ld and modern Tink/Nimbus libraries.")
+            }
+            if (requested.group == "com.fasterxml.jackson.module" && requested.name == "jackson-module-kotlin") {
+                useVersion("2.17.3")
+                because("Keep jackson-module-kotlin on a Kotlin 1.x-compatible release.")
             }
         }
     }
